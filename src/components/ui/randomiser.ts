@@ -107,12 +107,11 @@ const names = {
       'E',
       'F',
     ];
-    let res = '';
+    let res = '#';
     for (let index = 0; index < 6; index++) {
       const random = Math.ceil(Math.random() * arr.length - 1);
       res += arr[random];
-      console.log(random);
-      console.log(arr.length);
+    
     }
     return res;
   };
