@@ -97,7 +97,7 @@ export class GarageCar extends CreateElement {
   ): Promise<void> {
     const data = await startStopEngine(id, 'stopped');
 
-    if (data.status === 200) {
+    if (data?.status === 200) {
       this.updateButtons(start, stop, false);
       this.speed = 0;
       this.carAnimation?.cancel();
@@ -112,7 +112,7 @@ export class GarageCar extends CreateElement {
   ): Promise<void> {
     const data = await startStopEngine(id, 'started');
     console.log(id);
-    if (data.status === 200) {
+    if (data?.status === 200) {
       this.updateButtons(start, stop, true);
 
       const { result } = data;
@@ -138,7 +138,7 @@ export class GarageCar extends CreateElement {
   }
 
   private async switchToDriveMode(car: IEngineStatus): Promise<void> {
-    const driveMode = await switchEngineDrive(this.car.id);
+    const driveMode = await switchEngineDrive(this.car.id?this.car.id:200);
     return new Promise((resolve) => {
       if (driveMode === 500) {
         this.carAnimation?.pause();

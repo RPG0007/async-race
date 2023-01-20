@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
+    "target": "es2016",                            
+    "module": "commonjs",
     "sourceMap": true,
-    "module": "es6",
-    "target": "es5",
+    "outDir": "./dist/",
     "strict": true,
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
   },
-  "exclude": ["spec"]
+  "exclude": ["node_modules"]
 }

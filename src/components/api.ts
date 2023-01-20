@@ -1,11 +1,11 @@
 import { ICar, IEngineStatus, IWinner } from '../interfaces';
 
-const url: string = 'http://127.0.0.1:3000';
+const url = 'http://127.0.0.1:3000';
 
 export const getAllCars = async (
-  page: number = 1,
-  limit: number = 7
-): Promise<{ cars: Array<ICar>; count: string } | null> => {
+  page = 1,
+  limit = 7
+): Promise<{ cars: Array<ICar>; count: string } | null|undefined> => {
   try {
     const data = await fetch(`${url}/garage?_limit=${limit}&_page=${page}`);
     const res: ICar[] = await data.json();
@@ -19,11 +19,11 @@ export const getAllCars = async (
 
     return null;
   } catch (error) {
-    throw new Error(error);
+    console.log(error)
   }
 };
 
-export const getCar = async (id: number): Promise<ICar | null> => {
+export const getCar = async (id: number): Promise<ICar | null|undefined> => {
   try {
     const data = await fetch(`${url}/garage/${id}`);
     const res: ICar = await data.json();
@@ -34,11 +34,11 @@ export const getCar = async (id: number): Promise<ICar | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(error);
+    console.log(error)
   }
 };
 
-export const createCar = async (car: ICar): Promise<number> => {
+export const createCar = async (car: ICar): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/garage`, {
       method: 'POST',
@@ -50,11 +50,11 @@ export const createCar = async (car: ICar): Promise<number> => {
 
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
-export const deleteCar = async (id: number): Promise<number> => {
+export const deleteCar = async (id: number): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/garage/${id}`, {
       method: 'DELETE',
@@ -65,11 +65,11 @@ export const deleteCar = async (id: number): Promise<number> => {
 
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
-export const updateCar = async (car: ICar): Promise<number> => {
+export const updateCar = async (car: ICar): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/garage/${car.id}`, {
       method: 'PUT',
@@ -81,14 +81,14 @@ export const updateCar = async (car: ICar): Promise<number> => {
 
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
 export const startStopEngine = async (
   id: number,
   status: string
-): Promise<{ status: number; result: IEngineStatus }> => {
+): Promise<{ status: number; result: IEngineStatus }|undefined> => {
   try {
     const data = await fetch(`${url}/engine?id=${id}&status=${status}`, {
       method: 'PATCH',
@@ -100,17 +100,19 @@ export const startStopEngine = async (
       result: res,
     };
   } catch (error) {
-    throw new Error(error);
+     if(typeof error ==='string')
+     console.log(error);
   }
 };
 
-export const switchEngineDrive = async (id: number): Promise<number> => {
+export const switchEngineDrive = async (id: number): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/engine?id=${id}&status=drive`);
     return data.status;
   } catch (error) {
-    throw new Error(error);
-  }
+    if(typeof error ==='string')
+     console.log(error);}
+  
 };
 
 export const getAllWinners = async (
@@ -118,7 +120,7 @@ export const getAllWinners = async (
   limit = 10,
   sort = 'wins',
   order = 'DESC'
-): Promise<{ result: IWinner[]; total: string }> => {
+): Promise<{ result: IWinner[]; total: string }|null|undefined> => {
   try {
     const data = await fetch(
       `${url}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`
@@ -134,24 +136,24 @@ export const getAllWinners = async (
 
     return null;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
 export const getWinner = async (
   id: number
-): Promise<{ result: IWinner; status: number }> => {
+): Promise<{ result: IWinner; status: number }|undefined> => {
   try {
     const data = await fetch(`${url}/winners/${id}`);
     const res: IWinner = await data.json();
 
     return { result: res, status: data.status };
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
-export const createWinner = async (winner: IWinner): Promise<number> => {
+export const createWinner = async (winner: IWinner): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/winners`, {
       method: 'POST',
@@ -162,11 +164,11 @@ export const createWinner = async (winner: IWinner): Promise<number> => {
     });
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
-export const deleteWinner = async (id: number): Promise<number> => {
+export const deleteWinner = async (id: number): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/winners/${id}`, {
       method: 'DELETE',
@@ -177,11 +179,11 @@ export const deleteWinner = async (id: number): Promise<number> => {
 
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
 
-export const updateWinner = async (winner: IWinner): Promise<number> => {
+export const updateWinner = async (winner: IWinner): Promise<number|undefined> => {
   try {
     const data = await fetch(`${url}/winner/${winner.id}`, {
       method: 'PUT',
@@ -193,6 +195,6 @@ export const updateWinner = async (winner: IWinner): Promise<number> => {
 
     return data.status;
   } catch (error) {
-    throw new Error(error);
+     console.log(error);
   }
 };
