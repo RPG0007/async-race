@@ -17,7 +17,10 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['off'],
+    'comma-dangle': 'off',
+    '@typescript-eslint/comma-dangle': ['off', 'only-multiline'],
+    '@typescript-eslint/no-unused-vars': ['off'],
   },
 };

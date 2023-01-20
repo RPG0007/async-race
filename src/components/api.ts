@@ -4,7 +4,7 @@ const url: string = 'http://127.0.0.1:3000';
 
 export const getAllCars = async (
   page: number = 1,
-  limit: number = 8
+  limit: number = 7
 ): Promise<{ cars: Array<ICar>; count: string } | null> => {
   try {
     const data = await fetch(`${url}/garage?_limit=${limit}&_page=${page}`);
@@ -90,7 +90,9 @@ export const startStopEngine = async (
   status: string
 ): Promise<{ status: number; result: IEngineStatus }> => {
   try {
-    const data = await fetch(`${url}/engine?id=${id}&status=${status}`);
+    const data = await fetch(`${url}/engine?id=${id}&status=${status}`, {
+      method: 'PATCH',
+    });
     const res: IEngineStatus = await data.json();
 
     return {
