@@ -8,7 +8,7 @@ import {
   startStopEngine,
   switchEngineDrive,
 } from '../../api';
-
+import { flagDraw } from '../flag';
 export class GarageCar extends CreateElement {
   private carImg: CreateElement;
 
@@ -79,8 +79,12 @@ export class GarageCar extends CreateElement {
       ['car-icon'],
       carIcon(car.color)
     );
-    const flag = new CreateElement(road.element, 'img', ['flag']);
-    flag.element.setAttribute('src', './../../assets/flag.svg');
+    const flag: CreateElement = new CreateElement(
+      road.element,
+      'div',
+      ['flag'],
+      flagDraw()
+    );
     flag.element.setAttribute('alt', 'Race flag');
   }
 
@@ -89,7 +93,7 @@ export class GarageCar extends CreateElement {
     stop.setDisabled(!type);
   }
 
-  async stopCarEngine(id: number): Promise<void> {
+  async stopCarEngine(id: number|undefined): Promise<void> {
     const data = await startStopEngine(id, 'stopped');
 
     if (data?.status === 200) {

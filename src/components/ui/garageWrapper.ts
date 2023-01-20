@@ -26,6 +26,8 @@ export class GarageWrapper extends CreateElement {
 
   winnerPopup!: Winner;
 
+  updateCar!: ICar;
+
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
     this.updateCars();
@@ -63,7 +65,17 @@ export class GarageWrapper extends CreateElement {
       'Create'
     );
     buttonAdd.element.setAttribute('type', 'button');
+    buttonAdd.element.onclick = async () => {
+      const name = (nameAdd.element as HTMLInputElement).value;
+      const color = (colorAdd.element as HTMLInputElement).value;
 
+      if (name && color) {
+        createCar({ name: name, color: color });
+        await this.updateCars();
+        await this.drawCars();
+        await this.updateTitle();
+      }
+    };
     const headerChangeUpdate = new CreateElement(headerChange.element, 'form', [
       'header-change__update',
     ]);
@@ -115,7 +127,10 @@ export class GarageWrapper extends CreateElement {
       'Reset'
     );
     buttonReset.element.setAttribute('type', 'button');
-
+      
+    buttonReset.element.onclick = () => {
+      this.resetCars();
+    };
     const buttonGenerate = new CreateElement(
       headerChangeUpdate.element,
       'button',
@@ -230,6 +245,13 @@ export class GarageWrapper extends CreateElement {
       this.winnerPopup.remove();
     };
   }
+
+  private async resetCars(): Promise<void> {
+    this.allCarsElements.map(async (car) => {
+      await car.stopCarEngine(car.car.id);
+    });
+  }
+
   private async createOrUpdateWinner(winnerCar: ICar): Promise<void> {
     const carData = await getWinner(winnerCar.id);
 
