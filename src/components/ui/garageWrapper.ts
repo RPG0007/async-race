@@ -1,12 +1,18 @@
 import { CreateElement } from '../createElement';
-import { nameGenerator, colorGenerator } from './randomizer';
-import { createCar, getAllCars } from '../api';
+import { nameGenerator, colorGenerator } from './randomiser';
+import {
+  createCar,
+  getAllCars,
+  createWinner,
+  getWinner,
+  updateWinner,
+} from '../api';
 import { ICar, IAllCars } from '../../interfaces';
 import { GarageCar } from './car/index';
 import { Winner } from './winner/index';
 
 export class GarageWrapper extends CreateElement {
-  cars: IAllCars;
+  cars: IAllCars|null|undefined;
 
   title: CreateElement;
 
@@ -16,9 +22,9 @@ export class GarageWrapper extends CreateElement {
 
   garageItems: CreateElement;
 
-  allCarsElements: GarageCar[];
+  allCarsElements!: GarageCar[];
 
-  winnerPopup: Winner;
+  winnerPopup!: Winner;
 
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
@@ -173,7 +179,7 @@ export class GarageWrapper extends CreateElement {
   }
 
   private async updateTitle(): Promise<void> {
-    this.title.element.innerHTML = `Garage - (${this.cars.count} cars)`;
+    this.title.element.innerHTML = `Garage - (${this.cars?.count} cars)`;
   }
 
   private async updatePage(): Promise<void> {
@@ -194,7 +200,7 @@ export class GarageWrapper extends CreateElement {
     this.allCarsElements = [];
     this.garageItems.removeChilds();
     this.cars = await getAllCars(page, limit);
-    this.cars.cars.map((el) => {
+    this.cars?.cars.map((el) => {
       const res = new GarageCar(this.garageItems.element, el);
       this.allCarsElements.push(res);
     });
@@ -208,20 +214,32 @@ export class GarageWrapper extends CreateElement {
     });
 
     const winner = await Promise.race(res);
-    console.log('winner', winner);
+   
 
     const winCar: ICar = {
       id: winner.car.id,
       name: winner.car.name,
       color: winner.car.color,
-      speed: +(winner.speed / 1000).toFixed(2),
+      time: +(winner.speed / 1000).toFixed(2),
       wins: 1,
     };
 
     this.winnerPopup = new Winner(this.element, winCar);
-
+    await this.createOrUpdateWinner(winCar);
     this.winnerPopup.element.onclick = () => {
       this.winnerPopup.remove();
     };
+  }
+  private async createOrUpdateWinner(winnerCar: ICar): Promise<void> {
+    const carData = await getWinner(winnerCar.id);
+
+    if (carData && carData.result.wins && carData.status === 200) {
+      carData.result.wins++;
+      winnerCar.wins = carData.result.wins;
+
+      await updateWinner(winnerCar);
+    } else {
+      await createWinner(winnerCar);
+    }
   }
 }

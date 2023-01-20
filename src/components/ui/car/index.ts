@@ -100,7 +100,7 @@ export class GarageCar extends CreateElement {
     }
   }
 
-  async startCarEngine(id: number): Promise<void> {
+  async startCarEngine(id: number|undefined): Promise<void> {
     const data = await startStopEngine(id, 'started');
     console.log(id);
     if (data?.status === 200) {
