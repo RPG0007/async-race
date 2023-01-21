@@ -187,7 +187,7 @@ export const deleteWinner = async (id: number): Promise<number|undefined> => {
 
 export const updateWinner = async (winner: ICar): Promise<number|undefined> => {
   try {
-    const data = await fetch(`${url}/winner/${winner.id}`, {
+    const data = await fetch(`${url}/winners/${winner.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
