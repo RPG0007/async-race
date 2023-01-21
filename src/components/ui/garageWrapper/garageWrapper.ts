@@ -313,7 +313,11 @@ export class GarageWrapper extends CreateElement {
     if (carData && carData.result.wins && carData.status === 200) {
       carData.result.wins++;
       winnerCar.wins = carData.result.wins;
-
+      if(winnerCar.time&&carData.result.time){
+      winnerCar.time =
+      winnerCar.time < carData.result.time
+        ? winnerCar.time
+        : carData.result.time;}
       await updateWinner(winnerCar);
     } else {
       await createWinner(winnerCar);
