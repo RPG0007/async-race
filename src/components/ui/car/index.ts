@@ -9,6 +9,7 @@ import {
   switchEngineDrive,
 } from '../../api';
 import { flagDraw } from '../flag';
+import { deleteWinner } from '../../api';
 export class GarageCar extends CreateElement {
   private carImg: CreateElement;
 
@@ -39,7 +40,8 @@ export class GarageCar extends CreateElement {
       'Delete'
     );
     buttonDelete.element.onclick = () => {
-      if (car.id) deleteCar(car.id);
+      if (car.id) {deleteCar(car.id);
+      deleteWinner(car.id);}
       this.remove();
     };
 

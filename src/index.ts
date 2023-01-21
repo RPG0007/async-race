@@ -3,7 +3,7 @@ import { GarageWrapper } from './components/ui/garageWrapper';
 import { CreateElement } from './components/createElement';
 import { GarageCar } from './components/ui/car';
 import { getCar, getAllCars } from './components/api';
-
+import { WinnersWrapper } from './components/ui/winnersWrapper/index';
 (async () => {
   const body = document.body;
 
