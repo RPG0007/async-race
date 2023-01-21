@@ -28,6 +28,7 @@ export class GarageWrapper extends CreateElement {
   winnerPopup!: Winner;
 
   updateCar!: ICar;
+  winnersPage!: WinnersWrapper;
 
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
@@ -180,8 +181,8 @@ export class GarageWrapper extends CreateElement {
       'Next. Page'
     );
     buttonNextPage.element.setAttribute('type', 'button');
-    const winnersPage = new WinnersWrapper(parent);
-    winnersPage.element.classList.add('invisible');
+    this.winnersPage = new WinnersWrapper(parent);
+    this.winnersPage.element.classList.add('invisible');
     buttonNextPage.element.onclick = () => {
       this.pageNumber++;
       this.changePage();
@@ -195,14 +196,14 @@ export class GarageWrapper extends CreateElement {
     };
     toWinners.element.onclick = () => {
       garageItemsWrapper.element.classList.add('invisible');
-      winnersPage.element.classList.remove('invisible');
+      this.winnersPage.element.classList.remove('invisible');
       toWinners.element.toggleAttribute('disabled');
       toGarage.element.toggleAttribute('disabled');
     };
 
     toGarage.element.onclick = () => {
       garageItemsWrapper.element.classList.remove('invisible');
-      winnersPage.element.classList.add('invisible');
+      this.winnersPage.element.classList.add('invisible');
       toGarage.element.toggleAttribute('disabled');
       toWinners.element.toggleAttribute('disabled');
     };
