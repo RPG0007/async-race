@@ -1,5 +1,5 @@
 import './styles.scss';
-import { GarageWrapper } from './components/ui/garageWrapper';
+import { GarageWrapper } from './components/ui/garageWrapper/garageWrapper';
 import { CreateElement } from './components/createElement';
 import { GarageCar } from './components/ui/car';
 import { getCar, getAllCars } from './components/api';
