@@ -40,7 +40,7 @@ export const getCar = async (id: number): Promise<ICar | null|undefined> => {
 
 export const createCar = async (car: ICar): Promise<void|undefined> => {
   try {
-    const data = await fetch(`${url}/garage`, {
+    await fetch(`${url}/garage`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const createCar = async (car: ICar): Promise<void|undefined> => {
       body: JSON.stringify(car),
     });
 
-    //return data.status;
+   
   } catch (error) {
      console.log(error);
   }

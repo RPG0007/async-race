@@ -125,9 +125,7 @@ export class GarageWrapper extends CreateElement {
     buttonUpdate.element.onclick = () => {
       this.updateSelectedCar();
     };
-    const headerFormsButtons = new CreateElement(headerChange.element, 'form', [
-      'header-forms__buttons',
-    ]);
+    new CreateElement(headerChange.element, 'form', ['header-forms__buttons']);
     const buttonsWrapper = new CreateElement(
       garageItemsWrapper.element,
       'div',

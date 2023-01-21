@@ -2,12 +2,7 @@ import { carIcon } from '../../car';
 import { CreateElement } from '../../createElement';
 import { ICar, IEngineStatus } from '../../../interfaces';
 import './index.scss';
-import {
-  updateCar,
-  deleteCar,
-  startStopEngine,
-  switchEngineDrive,
-} from '../../api';
+import { deleteCar, startStopEngine, switchEngineDrive } from '../../api';
 import { flagDraw } from '../flag';
 import { deleteWinner } from '../../api';
 export class GarageCar extends CreateElement {
@@ -80,13 +75,7 @@ export class GarageCar extends CreateElement {
     this.buttonStop.element.onclick = () => {
       if (car.id) this.stopCarEngine(car.id);
     };
-
-    const carName = new CreateElement(
-      buttons.element,
-      'span',
-      ['car-name'],
-      car.name
-    );
+    new CreateElement(buttons.element, 'span', ['car-name'], car.name);
     const road = new CreateElement(this.element, 'div', ['road']);
 
     this.carImg = new CreateElement(
