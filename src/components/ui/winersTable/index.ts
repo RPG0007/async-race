@@ -13,7 +13,6 @@ export class WinnersTable extends CreateElement {
   }
 
   async drawTable() {
-    console.log(this.cars);
     new CreateElement(this.element, 'div', ['table-element', 'table-header__number'], '№');
 
     new CreateElement(this.element, 'div', ['table-element', 'table-header__car'], 'Car');
