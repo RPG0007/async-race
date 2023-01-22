@@ -2,9 +2,9 @@ import { carIcon } from '../../car';
 import { CreateElement } from '../../createElement';
 import { ICar, IEngineStatus } from '../../../interfaces';
 import './index.scss';
-import { deleteCar, startStopEngine, switchEngineDrive } from '../../api';
+import { deleteCar, startStopEngine, switchEngineDrive, deleteWinner } from '../../api';
 import { flagDraw } from '../flag';
-import { deleteWinner } from '../../api';
+ 
 export class GarageCar extends CreateElement {
   private carImg: CreateElement;
 
@@ -35,6 +35,7 @@ export class GarageCar extends CreateElement {
       if (car.id) {
         deleteCar(car.id);
         deleteWinner(car.id);
+       
       }
       this.remove();
     };

@@ -1,13 +1,6 @@
 import { CreateElement } from '../../createElement';
 import { nameGenerator, colorGenerator } from '../randomiser';
-import {
-  createCar,
-  getAllCars,
-  createWinner,
-  getWinner,
-  updateWinner,
-  updateCar,
-} from '../../api';
+import { createCar, getAllCars, createWinner, getWinner, updateWinner, updateCar } from '../../api';
 import { ICar, IAllCars } from '../../../interfaces';
 import { GarageCar } from '../car/index';
 import { Winner } from '../winner/index';
@@ -28,13 +21,12 @@ export class GarageWrapper extends CreateElement {
 
   winnerPopup!: Winner;
 
-   
   winnersPage!: WinnersWrapper;
 
   nameUpdate!: CreateElement;
 
   colorUpdate!: CreateElement;
-  
+
   buttonNextPage!: CreateElement;
 
   buttonPrevPage!: CreateElement;
@@ -42,43 +34,18 @@ export class GarageWrapper extends CreateElement {
   constructor(parent: HTMLElement) {
     super(parent, 'header', ['header']);
     const buttons = new CreateElement(this.element, 'div', ['buttons']);
-    const toGarage = new CreateElement(
-      buttons.element,
-      'button',
-      ['button', 'buttons-garage'],
-      'To garage'
-    );
+    const toGarage = new CreateElement(buttons.element, 'button', ['button', 'buttons-garage'], 'To garage');
     toGarage.element.setAttribute('disabled', '');
-    const toWinners = new CreateElement(
-      buttons.element,
-      'button',
-      ['button', 'buttons-winners'],
-      'To winners'
-    );
-    const garageItemsWrapper = new CreateElement(parent, 'div', [
-      'garage-items__wrapper',
-    ]);
+    const toWinners = new CreateElement(buttons.element, 'button', ['button', 'buttons-winners'], 'To winners');
+    const garageItemsWrapper = new CreateElement(parent, 'div', ['garage-items__wrapper']);
 
-    const headerChange = new CreateElement(garageItemsWrapper.element, 'div', [
-      'header-change',
-    ]);
-    const headerChangeAdd = new CreateElement(headerChange.element, 'form', [
-      'header-change__add',
-    ]);
-    const nameAdd = new CreateElement(headerChangeAdd.element, 'input', [
-      'name-add',
-    ]);
+    const headerChange = new CreateElement(garageItemsWrapper.element, 'div', ['header-change']);
+    const headerChangeAdd = new CreateElement(headerChange.element, 'form', ['header-change__add']);
+    const nameAdd = new CreateElement(headerChangeAdd.element, 'input', ['name-add']);
     nameAdd.element.setAttribute('type', 'text');
-    const colorAdd = new CreateElement(headerChangeAdd.element, 'input', [
-      'color-add',
-    ]);
+    const colorAdd = new CreateElement(headerChangeAdd.element, 'input', ['color-add']);
     colorAdd.element.setAttribute('type', 'color');
-    const buttonAdd = new CreateElement(
-      headerChangeAdd.element,
-      'button',
-      ['button', 'submit-add'],
-      'Create'
-    );
+    const buttonAdd = new CreateElement(headerChangeAdd.element, 'button', ['button', 'submit-add'], 'Create');
     buttonAdd.element.setAttribute('type', 'button');
     buttonAdd.element.onclick = async () => {
       const name = (nameAdd.element as HTMLInputElement).value;
@@ -93,26 +60,10 @@ export class GarageWrapper extends CreateElement {
         alert('First you must enter a valid data');
       }
     };
-    const headerChangeUpdate = new CreateElement(
-      garageItemsWrapper.element,
-      'form',
-      ['header-change__update']
-    );
-    this.nameUpdate = new CreateElement(
-      headerChangeUpdate.element,
-      'input',
-      ['name-update'],
-      '',
-      false
-    );
+    const headerChangeUpdate = new CreateElement(garageItemsWrapper.element, 'form', ['header-change__update']);
+    this.nameUpdate = new CreateElement(headerChangeUpdate.element, 'input', ['name-update'], '', false);
     nameAdd.element.setAttribute('type', 'text');
-    this.colorUpdate = new CreateElement(
-      headerChangeUpdate.element,
-      'input',
-      ['color-add'],
-      '',
-      false
-    );
+    this.colorUpdate = new CreateElement(headerChangeUpdate.element, 'input', ['color-add'], '', false);
     this.colorUpdate.element.setAttribute('type', 'color');
     const buttonUpdate = new CreateElement(
       headerChangeUpdate.element,
@@ -122,36 +73,22 @@ export class GarageWrapper extends CreateElement {
       false
     );
     buttonUpdate.element.setAttribute('type', 'button');
-    buttonUpdate.element.onclick = () => {
+    buttonUpdate.element.onclick = ():void => {
       this.updateSelectedCar();
     };
     new CreateElement(headerChange.element, 'form', ['header-forms__buttons']);
-    const buttonsWrapper = new CreateElement(
-      garageItemsWrapper.element,
-      'div',
-      ['buttons-wrapper']
-    );
-    const buttonRace = new CreateElement(
-      buttonsWrapper.element,
-      'button',
-      ['button', 'button-race'],
-      'Race'
-    );
+    const buttonsWrapper = new CreateElement(garageItemsWrapper.element, 'div', ['buttons-wrapper']);
+    const buttonRace = new CreateElement(buttonsWrapper.element, 'button', ['button', 'button-race'], 'Race');
     buttonRace.element.setAttribute('type', 'button');
 
-    buttonRace.element.onclick = () => {
+    buttonRace.element.onclick = ():void => {
       this.startRaceAllCars();
     };
 
-    const buttonReset = new CreateElement(
-      buttonsWrapper.element,
-      'button',
-      ['button', 'button-reset'],
-      'Reset'
-    );
+    const buttonReset = new CreateElement(buttonsWrapper.element, 'button', ['button', 'button-reset'], 'Reset');
     buttonReset.element.setAttribute('type', 'button');
-      
-    buttonReset.element.onclick = () => {
+
+    buttonReset.element.onclick = ():void => {
       this.resetCars();
     };
     const buttonGenerate = new CreateElement(
@@ -163,54 +100,41 @@ export class GarageWrapper extends CreateElement {
 
     buttonGenerate.element.setAttribute('type', 'button');
 
-    buttonGenerate.element.onclick = () => {
+    buttonGenerate.element.onclick = ():void => {
       this.generateCars();
-    
     };
 
     this.title = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
     this.page = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
-    
 
-    const pagination = new CreateElement(garageItemsWrapper.element, 'div', [
-      'pagination',
-    ]);
+    const pagination = new CreateElement(garageItemsWrapper.element, 'div', ['pagination']);
 
-    this.garageItems = new CreateElement(garageItemsWrapper.element, 'div', [
-      'garage-items',
-    ]);
+    this.garageItems = new CreateElement(garageItemsWrapper.element, 'div', ['garage-items']);
 
     this.drawCars(this.pageNumber, 7);
 
-    this.buttonPrevPage = new CreateElement(
-      pagination.element,
-      'button',
-      ['button', 'button-generate'],
-      'Prev. Page'
-    );
+    this.buttonPrevPage = new CreateElement(pagination.element, 'button', ['button', 'button-generate'], 'Prev. Page');
     this.buttonPrevPage.element.setAttribute('type', 'button');
 
-    this.buttonNextPage = new CreateElement(
-      pagination.element,
-      'button',
-      ['button', 'button-generate'],
-      'Next. Page'
-    );
+    this.buttonNextPage = new CreateElement(pagination.element, 'button', ['button', 'button-generate'], 'Next. Page');
     this.buttonNextPage.element.setAttribute('type', 'button');
     this.winnersPage = new WinnersWrapper(parent);
     this.winnersPage.element.classList.add('invisible');
-    this.buttonNextPage.element.onclick = () => {
+    this.buttonNextPage.element.onclick = ():void => {
       this.pageNumber++;
       this.updatePage();
+      this.updateCars();
       this.drawCars();
     };
 
-    this.buttonPrevPage.element.onclick = () => {
+    this.buttonPrevPage.element.onclick = ():void => {
       this.pageNumber--;
       this.updatePage();
+      this.updateCars();
       this.drawCars();
     };
-    toWinners.element.onclick = () => {
+    
+    toWinners.element.onclick = ():void => {
       garageItemsWrapper.element.classList.add('invisible');
       this.winnersPage.element.classList.remove('invisible');
       toWinners.element.toggleAttribute('disabled');
@@ -219,7 +143,7 @@ export class GarageWrapper extends CreateElement {
       this.winnersPage = new WinnersWrapper(parent);
     };
 
-    toGarage.element.onclick = () => {
+    toGarage.element.onclick = ():void => {
       garageItemsWrapper.element.classList.remove('invisible');
       this.winnersPage.element.classList.add('invisible');
       toGarage.element.toggleAttribute('disabled');
@@ -228,7 +152,7 @@ export class GarageWrapper extends CreateElement {
     this.updateCars();
   }
 
-  private async updateCars(): Promise<void> {
+  public async updateCars(): Promise<void> {
     this.cars = await getAllCars();
     this.updateTitle();
     this.updatePage();
@@ -241,7 +165,6 @@ export class GarageWrapper extends CreateElement {
   private async updatePage(): Promise<void> {
     this.page.element.innerHTML = `Page - ${this.pageNumber}`;
     const totalPages = Math.ceil(Number(this.cars?.count) / 7);
-   
 
     if (this.pageNumber === 1) this.buttonPrevPage.setDisabled(true);
     if (this.pageNumber > 1) this.buttonPrevPage.setDisabled(false);
@@ -253,7 +176,7 @@ export class GarageWrapper extends CreateElement {
   private async generateCars(): Promise<void> {
     for (let index = 0; index < 100; index -= -1) {
       const car = { name: nameGenerator(), color: colorGenerator() };
-    
+
       await createCar(car);
       this.updateCars();
     }
@@ -263,26 +186,19 @@ export class GarageWrapper extends CreateElement {
     this.allCarsElements = [];
     this.garageItems.removeChilds();
     this.cars = await getAllCars(page, limit);
-    this.cars?.cars.map((el) => {
-      const res = new GarageCar(
-        this.garageItems.element,
-        el,
-        this.nameUpdate,
-        this.colorUpdate
-      );
+    this.cars?.cars.map(el => {
+      const res = new GarageCar(this.garageItems.element, el, this.nameUpdate, this.colorUpdate);
       this.allCarsElements.push(res);
     });
- 
   }
 
   private async startRaceAllCars(): Promise<void> {
-    const res = this.allCarsElements.map(async (car) => {
+    const res = this.allCarsElements.map(async car => {
       await car.startCarEngine(car.car.id);
       return car;
     });
 
     const winner = await Promise.race(res);
-   
 
     const winCar: ICar = {
       id: winner.car.id,
@@ -300,7 +216,7 @@ export class GarageWrapper extends CreateElement {
   }
 
   private async resetCars(): Promise<void> {
-    this.allCarsElements.map(async (car) => {
+    this.allCarsElements.map(async car => {
       await car.stopCarEngine(car.car.id);
     });
   }
@@ -312,10 +228,7 @@ export class GarageWrapper extends CreateElement {
       carData.result.wins++;
       winnerCar.wins = carData.result.wins;
       if (winnerCar.time && carData.result.time) {
-        winnerCar.time =
-      winnerCar.time < carData.result.time
-        ? winnerCar.time
-        : carData.result.time;
+        winnerCar.time = winnerCar.time < carData.result.time ? winnerCar.time : carData.result.time;
       }
       await updateWinner(winnerCar);
     } else {

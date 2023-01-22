@@ -79,7 +79,7 @@ const names = {
     'Tribeca',
   ],
 };
-  
+
 export const nameGenerator = () => {
   const brandLength = names.brand.length;
   const titleLength = names.title.length;
@@ -87,31 +87,13 @@ export const nameGenerator = () => {
   const title = names.title[Math.ceil(Math.random() * (titleLength - 1))];
   return `${brand} ${title}`;
 };
-  
+
 export const colorGenerator = () => {
-  const arr = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '0',
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-  ];
+  const arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D', 'E', 'F'];
   let res = '#';
   for (let index = 0; index < 6; index++) {
     const random = Math.ceil(Math.random() * arr.length - 1);
     res += arr[random];
-    
   }
   return res;
 };

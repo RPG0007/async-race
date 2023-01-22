@@ -47,8 +47,6 @@ export const createCar = async (car: ICar): Promise<void | undefined> => {
       },
       body: JSON.stringify(car),
     });
-
-   
   } catch (error) {
     console.log(error);
   }
@@ -100,7 +98,6 @@ export const startStopEngine = async (
       result: res,
     };
   } catch (error) {
-    
     console.log(error);
   }
 };
@@ -112,10 +109,8 @@ export const switchEngineDrive = async (id: number | undefined): Promise<number 
     });
     return data.status;
   } catch (error) {
-     
     console.log(error);
   }
-  
 };
 
 export const getAllWinners = async (
@@ -125,9 +120,7 @@ export const getAllWinners = async (
   order = 'DESC'
 ): Promise<{ result: ICar[]; total: string } | null | undefined> => {
   try {
-    const data = await fetch(
-      `${url}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`
-    );
+    const data = await fetch(`${url}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`);
     const res: ICar[] = await data.json();
 
     if (data.status === 200) {
@@ -143,9 +136,7 @@ export const getAllWinners = async (
   }
 };
 
-export const getWinner = async (
-  id: number | undefined
-): Promise<{ result: ICar; status: number } | undefined> => {
+export const getWinner = async (id: number | undefined): Promise<{ result: ICar; status: number } | undefined> => {
   try {
     const data = await fetch(`${url}/winners/${id}`);
     const res: ICar = await data.json();

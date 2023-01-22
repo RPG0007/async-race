@@ -6,9 +6,7 @@ export class Winner extends CreateElement {
   constructor(parentNode: HTMLElement, car: ICar) {
     super(parentNode, 'div', ['winner-screen']);
 
-    const title = new CreateElement(this.element, 'h2', [
-      'winner-screen__title',
-    ]);
+    const title = new CreateElement(this.element, 'h2', ['winner-screen__title']);
     title.element.style.color = `${car.color}`;
     title.element.innerHTML = `
       <span>${car.name}</span>

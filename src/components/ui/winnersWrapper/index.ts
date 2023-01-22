@@ -27,16 +27,10 @@ export class WinnersWrapper extends CreateElement {
     this.title = new CreateElement(this.element, 'h2', ['title']);
     this.page = new CreateElement(this.element, 'h2', ['title']);
 
-   
     const pagination = new CreateElement(this.element, 'div', ['pagination']);
     const sorting = new CreateElement(this.element, 'div', ['sort']);
 
-    const buttonSorttimeA = new CreateElement(
-      sorting.element,
-      'button',
-      ['button', 'button-sort'],
-      'Sort by time Asc'
-    );
+    const buttonSorttimeA = new CreateElement(sorting.element, 'button', ['button', 'button-sort'], 'Sort by time Asc');
     buttonSorttimeA.element.onclick = () => {
       this.sort = 'time';
       this.order = 'ASC';
@@ -56,12 +50,7 @@ export class WinnersWrapper extends CreateElement {
       this.drawPage();
     };
 
-    const buttonSortWinsA = new CreateElement(
-      sorting.element,
-      'button',
-      ['button', 'button-sort'],
-      'Sort by Wins Asc'
-    );
+    const buttonSortWinsA = new CreateElement(sorting.element, 'button', ['button', 'button-sort'], 'Sort by Wins Asc');
     buttonSortWinsA.element.onclick = () => {
       this.sort = 'wins';
       this.order = 'ASC';
@@ -93,12 +82,7 @@ export class WinnersWrapper extends CreateElement {
       this.updatePage();
       this.drawPage();
     };
-    this.buttonNextPage = new CreateElement(
-      pagination.element,
-      'button',
-      ['button', 'button-generate'],
-      'Next. Page'
-    );
+    this.buttonNextPage = new CreateElement(pagination.element, 'button', ['button', 'button-generate'], 'Next. Page');
     this.buttonNextPage.element.setAttribute('type', 'button');
     this.buttonNextPage.element.onclick = () => {
       this.pageNumber++;
@@ -109,12 +93,7 @@ export class WinnersWrapper extends CreateElement {
   }
 
   private async getWinners(): Promise<void> {
-    this.winners = await getAllWinners(
-      this.pageNumber,
-      10,
-      this.sort,
-      this.order
-    );
+    this.winners = await getAllWinners(this.pageNumber, 10, this.sort, this.order);
   }
 
   private async drawPage() {
@@ -134,7 +113,6 @@ export class WinnersWrapper extends CreateElement {
   private async updatePage(): Promise<void> {
     this.page.element.innerHTML = `Page - ${this.pageNumber}`;
     const totalPages = Math.ceil(Number(this.winners?.total) / 10);
-    
 
     if (this.pageNumber === 1) this.buttonPrevPage.setDisabled(true);
     if (this.pageNumber > 1) this.buttonPrevPage.setDisabled(false);
