@@ -17,4 +17,4 @@ export function carIcon(color: string): string {
    </g>
   </svg>
   `;
-  }
+}

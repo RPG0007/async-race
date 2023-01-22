@@ -4,18 +4,19 @@ import './index.scss';
 import { carIcon } from '../../car/index';
 
 export class WinnersTable extends CreateElement {
-  cars: { result: ICar[]; total: string }|null|undefined;
+  cars!: { result: ICar[]; total: string };
 
   constructor(
     parentNode: HTMLElement,
-    cars: { result: ICar[]; total: string }|null|undefined
+    cars: { result: ICar[]; total: string } | null | undefined
   ) {
     super(parentNode, 'div', ['winner-table']);
-    if(this.cars)this.cars = cars;
+    if (cars) this.cars = cars;
     this.drawTable();
   }
 
   async drawTable() {
+    console.log(this.cars);
     new CreateElement(
       this.element,
       'div',

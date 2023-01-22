@@ -1,5 +1,5 @@
 export function flagDraw(): string {
-    return `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8"?>
   <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <!-- Creator: CorelDRAW 2018 -->
   <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.891035in" height="1.06154in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
@@ -19,4 +19,4 @@ export function flagDraw(): string {
     </g>
    </g>
   </svg>`;
-  }
+}

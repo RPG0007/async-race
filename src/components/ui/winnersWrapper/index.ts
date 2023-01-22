@@ -4,11 +4,11 @@ import { getAllWinners } from '../../api';
 import { WinnersTable } from '../winersTable/index';
 import './index.scss';
 export class WinnersWrapper extends CreateElement {
-  winners: { result: ICar[]; total: string }|null|undefined;
+  winners: { result: ICar[]; total: string } | null | undefined;
 
   pageNumber = 1;
 
-  sort = 'wins';
+  sort = 'time';
 
   order = 'DESC';
 
@@ -31,27 +31,27 @@ export class WinnersWrapper extends CreateElement {
     const pagination = new CreateElement(this.element, 'div', ['pagination']);
     const sorting = new CreateElement(this.element, 'div', ['sort']);
 
-    const buttonSortNameA = new CreateElement(
+    const buttonSorttimeA = new CreateElement(
       sorting.element,
       'button',
       ['button', 'button-sort'],
-      'Sort by Name Asc'
+      'Sort by time Asc'
     );
-    buttonSortNameA.element.onclick = () => {
-      this.sort = 'name';
+    buttonSorttimeA.element.onclick = () => {
+      this.sort = 'time';
       this.order = 'ASC';
       this.drawPage();
     };
 
-    const buttonSortNameD = new CreateElement(
+    const buttonSorttimeD = new CreateElement(
       sorting.element,
       'button',
       ['button', 'button-sort'],
-      'Sort by Name Desc'
+      'Sort by time Desc'
     );
 
-    buttonSortNameD.element.onclick = () => {
-      this.sort = 'name';
+    buttonSorttimeD.element.onclick = () => {
+      this.sort = 'time';
       this.order = 'DESC';
       this.drawPage();
     };

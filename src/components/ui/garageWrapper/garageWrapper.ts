@@ -14,7 +14,7 @@ import { Winner } from '../winner/index';
 import { WinnersWrapper } from '../winnersWrapper/index';
 import './index.scss';
 export class GarageWrapper extends CreateElement {
-  cars: IAllCars|null|undefined;
+  cars: IAllCars | null | undefined;
 
   title: CreateElement;
 
@@ -170,7 +170,7 @@ export class GarageWrapper extends CreateElement {
 
     this.title = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
     this.page = new CreateElement(garageItemsWrapper.element, 'h2', ['title']);
-    //this.updatePage();
+    
 
     const pagination = new CreateElement(garageItemsWrapper.element, 'div', [
       'pagination',
@@ -311,16 +311,18 @@ export class GarageWrapper extends CreateElement {
     if (carData && carData.result.wins && carData.status === 200) {
       carData.result.wins++;
       winnerCar.wins = carData.result.wins;
-      if(winnerCar.time&&carData.result.time){
-      winnerCar.time =
+      if (winnerCar.time && carData.result.time) {
+        winnerCar.time =
       winnerCar.time < carData.result.time
         ? winnerCar.time
-        : carData.result.time;}
+        : carData.result.time;
+      }
       await updateWinner(winnerCar);
     } else {
       await createWinner(winnerCar);
     }
   }
+
   private async updateSelectedCar() {
     const name = (this.nameUpdate.element as HTMLInputElement).value;
     const color = (this.colorUpdate.element as HTMLInputElement).value;
